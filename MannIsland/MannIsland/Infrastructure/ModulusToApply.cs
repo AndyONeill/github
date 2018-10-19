@@ -11,7 +11,8 @@ namespace MannIsland
         public uint End { get; set; }
         // ToDo ??? Make this an interface and build 3 versions
         public object ModVal { get; set; }
-        public int[]  Weightings { get; set; }
+        public int[] SortCodeWeightings { get; set; }
+        public int[] AccountNoWeightings { get; set; }
         public int? Ex { get; set; }
     }
 }
