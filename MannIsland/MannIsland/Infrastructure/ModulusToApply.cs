@@ -9,9 +9,15 @@ namespace MannIsland
     {
         public uint Start { get; set; }
         public uint End { get; set; }
-        // ToDo ??? Make this an interface and build 3 versions
-        public object ModVal { get; set; }
         public int[]  Weightings { get; set; }
         public int? Ex { get; set; }
+
+        public IWeightingTotaller WeightingTotaller { get; set; }
+        public int Divisor { get; set; }
+
+        public ModulusResult Check()
+        {
+            return new ModulusResult();
+        }
     }
 }

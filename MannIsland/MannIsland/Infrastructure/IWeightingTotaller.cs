@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace MannIsland
 {
-    public class ModulusResult
+    public interface IWeightingTotaller
     {
-        public bool OK { get; set; }
-        public string Error { get; set; }
+        Int32 GetTotal(int[] sortCodeAccNo, int[] weightings);
     }
 }

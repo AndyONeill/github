@@ -14,6 +14,9 @@ namespace MannIsland.Services
            
         }
 
+        public IWeightingTotaller DoubleTotaller { get; set; } = new MultiplyAddByCharacter();
+        public IWeightingTotaller OtherTotaller { get; set; } = new MultiplyAdd();
+
         public Validator(string baseurl)
         {
             readInFile(baseurl);
@@ -44,13 +47,27 @@ namespace MannIsland.Services
             {
                 Start = uint.Parse(pieces[0]),
                 End = uint.Parse(pieces[1]),
-                ModVal = null,    // ToDo ??? don't forget the mod method object wossname
                 Weightings = weightings
             };
             if (pieces.Length == 18)
             {
                 m.Ex = int.Parse(pieces[17]);
             }
+            string whichMod = pieces[2];
+            m.Divisor = 10;
+            if (whichMod == "DBLAL")
+            {
+                m.WeightingTotaller = DoubleTotaller;
+            }
+            else
+            {
+                m.WeightingTotaller = OtherTotaller;
+                if(whichMod == "MOD11")
+                {
+                    m.Divisor = 11;
+                }
+            }
+
             return m;
         }
         public string[] GetPieces(string line)
