@@ -23,6 +23,11 @@ namespace MannIsland
         {
             _account = account;
             bool ok = false;
+            // not sure whether I really need a list of checks 
+            // but.... using a list allows me to have multiple tests and fail if any are false
+            List<bool> checkResults = new List<bool>();
+
+            // Arrays are reference types
             Array.Copy(Weightings, ModifiedWeightings,14);
             GetPreActions(Ex).ForEach(x=>x.Invoke());
             List<int> accAsNumList = new List<int>();
@@ -30,10 +35,9 @@ namespace MannIsland
             {
                 accAsNumList.Add( (int)Char.GetNumericValue(c));
             }
-            if(WeightingTotaller.GetTotal(accAsNumList, ModifiedWeightings) % Divisor == 0)
-            {
-                ok = true;
-            }
+            checkResults.Add(WeightingTotaller.GetTotal(accAsNumList, ModifiedWeightings) % Divisor == 0);
+
+            ok = checkResults.TrueForAll(x=>x==true);
             return new ModulusResult { OK=ok };
         }
 
