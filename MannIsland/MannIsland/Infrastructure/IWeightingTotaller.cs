@@ -7,6 +7,6 @@ namespace MannIsland
 {
     public interface IWeightingTotaller
     {
-        Int32 GetTotal(int[] sortCodeAccNo, int[] weightings);
+        Int32 GetTotal(List<int> sortCodeAccNo, int[] weightings);
     }
 }

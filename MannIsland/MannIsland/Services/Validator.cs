@@ -69,8 +69,8 @@ namespace MannIsland.Services
         {
             var rules = GetRules(account);
 
+
             return new ModulusResult();
-            //return Task.FromResult(new ModulusResult());
         }
 
         public List<ModulusToApply> GetRules(Account account)

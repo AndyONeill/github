@@ -7,7 +7,7 @@ namespace MannIsland
 {
     public class MultiplyAdd : IWeightingTotaller
     {
-        public int GetTotal(int[] sortCodeAccNo, int[] weightings)
+        public int GetTotal(List<int> sortCodeAccNo, int[] weightings)
         {
             int result = 0;
             for (int i = 0; i < weightings.Length; i++)

@@ -15,9 +15,51 @@ namespace MannIsland
         public IWeightingTotaller WeightingTotaller { get; set; }
         public int Divisor { get; set; }
 
-        public ModulusResult Check()
+
+        public int[] ModifiedWeightings { get; set; } = new int[14];
+
+        private Account _account;
+        public ModulusResult Check(Account account)
         {
-            return new ModulusResult();
+            _account = account;
+            bool ok = false;
+            Array.Copy(Weightings, ModifiedWeightings,14);
+            GetPreActions(Ex).ForEach(x=>x.Invoke());
+            List<int> accAsNumList = new List<int>();
+            foreach (char c in account.SortCodeAccountNo)
+            {
+                accAsNumList.Add( (int)Char.GetNumericValue(c));
+            }
+            if(WeightingTotaller.GetTotal(accAsNumList, ModifiedWeightings) % Divisor == 0)
+            {
+                ok = true;
+            }
+            return new ModulusResult { OK=ok };
+        }
+
+        public List<Action> GetPreActions(int? ex)
+        {
+            List<Action> actions = new List<Action>();
+            switch (ex)
+            {
+                case 7:
+                    {
+                        actions.Add
+                            (
+                            () => {
+                                if(_account.SortCodeAccountNo[12] == '9')
+                                {
+                                    for (int i = 0; i < 7; i++)
+                                    {
+                                        ModifiedWeightings[i] = 0;
+                                    }
+                                }
+                                  }
+                            );
+                       break;
+                    }
+            }
+            return actions;
         }
     }
 }
