@@ -39,8 +39,6 @@ namespace Tests
             ModulusToApply ma = val.GetParsedValacLine(exLine);
             Assert.Equal(-1, ma.Weightings[13]);
             Assert.Equal(12, ma.Ex);
-
-            Validator val1 = new Validator(".");
         }
         [Fact]
         public void CheckFullValacdosParses()

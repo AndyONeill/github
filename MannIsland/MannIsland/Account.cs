@@ -9,5 +9,7 @@ namespace MannIsland
     {
        public string SortCode { get; set; }
        public string AccountNo { get; set; }
+
+       public string SortCodeAccountNo => SortCode + AccountNo;
     }
 }

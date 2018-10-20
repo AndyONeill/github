@@ -7,6 +7,6 @@ namespace MannIsland.Services
 {
     public interface IValidator
     {
-        Task<ModulusResult> Validate(Account account);
+        ModulusResult Validate(Account account);
     }
 }

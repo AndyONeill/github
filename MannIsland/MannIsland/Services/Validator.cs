@@ -9,21 +9,12 @@ namespace MannIsland.Services
 {
     public class Validator : IValidator
     {
-        public Validator()
-        {
-           
-        }
-
         public IWeightingTotaller DoubleTotaller { get; set; } = new MultiplyAddByCharacter();
         public IWeightingTotaller OtherTotaller { get; set; } = new MultiplyAdd();
 
-        public Validator(string baseurl)
-        {
-            readInFile(baseurl);
-        }
-
         public List<ModulusToApply> modulii { get; set; } = new List<ModulusToApply>();
 
+        #region Setting up the sort code ranges and validation rules for them
         private void readInFile(string baseurl)
         {
             List<ModulusToApply> mods = new List<ModulusToApply> ();
@@ -67,17 +58,35 @@ namespace MannIsland.Services
                     m.Divisor = 11;
                 }
             }
-
             return m;
         }
         public string[] GetPieces(string line)
         {
             return line.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).ToArray();
         }
-
-        public Task<ModulusResult> Validate(Account account)
+        #endregion
+        public ModulusResult Validate(Account account)
         {
-            return Task.FromResult(new ModulusResult());
+            var rules = GetRules(account);
+
+            return new ModulusResult();
+            //return Task.FromResult(new ModulusResult());
+        }
+
+        public List<ModulusToApply> GetRules(Account account)
+        {
+            int sortCodeNum = int.Parse(account.SortCode);
+            var matches = modulii.Where(x => x.Start <= sortCodeNum && x.End >= sortCodeNum).ToList();
+            return matches;
+        }
+
+        public Validator()
+        {
+
+        }
+        public Validator(string baseurl)
+        {
+            readInFile(baseurl);
         }
     }
 }
