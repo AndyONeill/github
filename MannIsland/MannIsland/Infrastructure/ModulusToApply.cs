@@ -14,17 +14,19 @@ namespace MannIsland
 
         public IWeightingTotaller WeightingTotaller { get; set; }
         public int Divisor { get; set; }
-
+        
 
         public int[] ModifiedWeightings { get; set; } = new int[14];
-
+        public int Remainder { get; set; } = 0;
+        public int ExpectedRemainder { get; set; } = 0;
         private Account _account;
-        public ModulusResult Check(Account account)
+        public bool Check(Account account)
         {
             _account = account;
             bool ok = false;
             // not sure whether I really need a list of checks 
-            // but.... using a list allows me to have multiple tests and fail if any are false
+            // but.... 
+            // using a list allows me to have multiple tests and fail if any are false
             List<bool> checkResults = new List<bool>();
 
             // Arrays are reference types
@@ -35,17 +37,54 @@ namespace MannIsland
             {
                 accAsNumList.Add( (int)Char.GetNumericValue(c));
             }
-            checkResults.Add(WeightingTotaller.GetTotal(accAsNumList, ModifiedWeightings) % Divisor == 0);
+            checkResults.Add(WeightingTotaller.GetTotal(accAsNumList, ModifiedWeightings) % Divisor == ExpectedRemainder);
 
-            ok = checkResults.TrueForAll(x=>x==true);
-            return new ModulusResult { OK=ok };
+            List<Predicate<ModulusToApply>> postPredicates = GetPostPredicates(Ex);
+
+            ok = checkResults.TrueForAll(x=>x==true) && 
+                 postPredicates.TrueForAll(x=> x(this)==true);
+            return ok;
         }
 
+        public List<Predicate<ModulusToApply>> GetPostPredicates(int? ex)
+        {
+            List<Predicate<ModulusToApply>> predicates = new List<Predicate<ModulusToApply>>();
+            Predicate<ModulusToApply> pred = x => true;
+
+            //switch (ex)
+            //{
+            //    case 4:
+            //        {
+            //            // I don't follow how exception 4 is supposed to work.
+            //            // How can the mod 11 check be ok and the remainder be anything but zero?
+
+            //            pred = x => Remainder == (int)Char.GetNumericValue(_account.SortCodeAccountNo[12]) * 10 +
+            //                                     (int)Char.GetNumericValue(_account.SortCodeAccountNo[13]);
+                        
+            //            break;
+            //        }
+
+            //}
+
+            return predicates;
+        }
+        
         public List<Action> GetPreActions(int? ex)
         {
             List<Action> actions = new List<Action>();
             switch (ex)
             {
+                case 4:
+                    {
+                        actions.Add
+                        (
+                        () => {
+                            ExpectedRemainder = (int)Char.GetNumericValue(_account.SortCodeAccountNo[12]) * 10 +
+                                                (int)Char.GetNumericValue(_account.SortCodeAccountNo[13]);
+                            }
+                        );
+                        break;
+                    }
                 case 7:
                     {
                         actions.Add
@@ -53,7 +92,7 @@ namespace MannIsland
                             () => {
                                 if(_account.SortCodeAccountNo[12] == '9')
                                 {
-                                    for (int i = 0; i < 7; i++)
+                                    for (int i = 0; i < 8; i++)
                                     {
                                         ModifiedWeightings[i] = 0;
                                     }

@@ -69,8 +69,10 @@ namespace MannIsland.Services
         {
             var rules = GetRules(account);
 
+            // ToDo This is simpler than the spec flowchart
+            var ok = rules.TrueForAll(x => x.Check(account) == true);
 
-            return new ModulusResult();
+            return new ModulusResult { OK = ok };
         }
 
         public List<ModulusToApply> GetRules(Account account)

@@ -29,7 +29,9 @@ namespace MannIsland
         {
             Services = services;
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddSingleton<IValidator, Validator>();
+            // DI inject the one instance of Validator with parameter
+            // This will be picked up by any controller has IValidator as a ctor parameter
+            services.AddSingleton<IValidator>(s => new Validator(Environment.ContentRootPath));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,12 +41,18 @@ namespace MannIsland
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.Run(async (context) =>
-            {
-                Validator vd = new Validator(Environment.ContentRootPath);
-                await context.Response.WriteAsync("Hello World!");
+            app.UseStatusCodePages();
+            app.UseStaticFiles();
+            app.UseMvc(routes => {
+                routes.MapRoute(
+                       //routes.MapRoute(
+                       //name: "default",
+                       //template: "{controller=Home}/{action=Index}");
+                       name: "Validate",
+                       template: "{controller}/{action}/{SortCode?}/{AccountNo?}");
+                routes.MapRoute(name: null, template: "API/{controller}/{action}");
             });
+
         }
     }
 }
