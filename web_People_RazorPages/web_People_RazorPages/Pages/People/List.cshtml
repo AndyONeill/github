@@ -1,0 +1,46 @@
+﻿@page
+@model web_People_RazorPages.Pages.People.ListModel
+@{
+    ViewData["Title"] = "List of People";
+}
+
+<h2>List of People</h2>
+<form method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Last Name</th>
+                <th>House Number</th>
+                <th>Road</th>
+                <th>PostCode</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var person in Model.People)
+            {
+            <tr>
+                <td>@person.FirstName</td>
+                <td>@person.SurName</td>
+                <td>@person.HouseNumber</td>
+                <td>@person.Road</td>
+                <td>@person.PostCode</td>
+                <td>
+                    <a asp-page="./Edit"
+                             class="btn btn-success"
+                             asp-route-id="@person.Id">Edit</a>
+                    <button type="submit"
+                            class="btn btn-danger"
+                            asp-page-handler="delete"
+                            asp-route-id="@person.Id">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-page="./Edit" class="btn btn-info">Add new Person</a>
+</form>
+

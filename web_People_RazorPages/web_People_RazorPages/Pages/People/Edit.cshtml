@@ -1,0 +1,58 @@
+﻿@page "{id:int?}"
+@model web_People_RazorPages.Pages.People.EditModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>@Model.Mode</h2>
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <input asp-for="Person.Id" type="hidden" />
+    <table>
+        <tr>
+            <td>
+                 First Name:
+            </td>
+            <td>
+                <input asp-for="Person.FirstName" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Last Name:
+            </td>
+            <td>
+                <input asp-for="Person.SurName" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                House Number:
+            </td>
+            <td>
+                <input asp-for="Person.HouseNumber" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Road:
+            </td>
+            <td>
+                <input asp-for="Person.Road" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Post Code:
+            </td>
+            <td>
+                <input asp-for="Person.PostCode" />
+            </td>
+        </tr>
+    </table>
+    <button type="submit"
+            class="btn btn-success"
+            >
+        Save
+    </button>
+</form>
