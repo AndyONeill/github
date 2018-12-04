@@ -14,7 +14,7 @@
             AutoGenerateColumns="false"
             DataKeyNames="ID">
             <Columns>
-               <asp:BoundField DataField="FirstName" HeaderText="FirstName"  />
+               <asp:BoundField DataField="FirstName" HeaderText="First Name"  />
                <asp:BoundField DataField="SurName" HeaderText="SurName"  />
                <asp:BoundField DataField="HouseNumber" HeaderText="House Number"/>
                <asp:BoundField DataField="Road"  HeaderText="Road" />
