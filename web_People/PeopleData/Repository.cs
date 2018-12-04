@@ -57,5 +57,21 @@ namespace PeopleData
             }
             return result;
         }
+        public async Task<bool> DeletePersonAsync(int id)
+        {
+            bool result = false;
+            using (var db = new AndyPeopleEntities())
+            {
+                var person = db.People.Find(id);
+                db.People.Attach(person);
+                db.Entry(person).State = EntityState.Deleted;
+                int changed = await db.SaveChangesAsync();
+                if (changed == 1)
+                {
+                    result = true;
+                }
+            }
+            return result;
+        }
     }
 }

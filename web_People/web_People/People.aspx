@@ -10,6 +10,7 @@
         <asp:GridView ID="PeopleGrid" 
             runat="server"
             SelectMethod="GetPeople"
+            DeleteMethod="DeletePerson"
             ItemType="PeopleData.Person"
             AutoGenerateColumns="false"
             DataKeyNames="ID">
@@ -23,6 +24,7 @@
                    DataField="ID" 
                    HtmlEncode="False" 
                    DataFormatString="<a href='EditPerson.aspx?id={0}'>Edit</a>" />
+                <asp:CommandField ShowDeleteButton="true" /> 
             </Columns>
         </asp:GridView>
 

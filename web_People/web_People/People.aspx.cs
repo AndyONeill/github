@@ -17,6 +17,12 @@ namespace web_People
             var people = await rep.GetAllPeopleAsync();
             return people;
         }
+        public async Task DeletePerson(int id)
+        {
+            Repository rep = new Repository();
+            bool ok = await rep.DeletePersonAsync(id);
+        }
+
         protected void btnInsert_Click(object sender, EventArgs e)
         {
             Response.Redirect("EditPerson.aspx?id=0");
