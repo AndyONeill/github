@@ -11,7 +11,7 @@ namespace web_People
 {
     public partial class People : System.Web.UI.Page
     {
-        public  async Task<List<Person>> GetPeople()
+        public async Task<List<Person>> GetPeople()
         {
             Repository rep = new Repository();
             var people = await rep.GetAllPeopleAsync();

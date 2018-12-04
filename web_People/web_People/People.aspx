@@ -22,7 +22,7 @@
                <asp:BoundField 
                    DataField="ID" 
                    HtmlEncode="False" 
-                   DataFormatString="<a target='_blank' href='EditPerson.aspx?id={0}'>Edit</a>" />
+                   DataFormatString="<a href='EditPerson.aspx?id={0}'>Edit</a>" />
             </Columns>
         </asp:GridView>
 
