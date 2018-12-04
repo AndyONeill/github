@@ -10,6 +10,21 @@ namespace web_People
 {
     public partial class EditPerson : System.Web.UI.Page
     {
+        public async Task<object> fvPerson_GetItem()
+        {
+            Person person = new Person();
+            string idString = Request.QueryString["id"];
+            if (!string.IsNullOrEmpty(idString))
+            {
+                int id = int.Parse(idString);
+                if (id != 0)
+                {
+                    Repository rep = new Repository();
+                    person = await rep.GetPersonAsync(id);
+                }
+            }
+            return person;
+        }
         public async void fvPerson_UpdateItem(int id)
         {
             Person person = new Person();
@@ -24,26 +39,6 @@ namespace web_People
                 bool ok = await rep.UpdatePersonAsync(person);
             }
             Response.Redirect("People.aspx");
-        }
-
-        public async Task<object> fvPerson_GetItem()
-        {
-            Person person = new Person();
-            string idString = Request.QueryString["id"];
-            if (!string.IsNullOrEmpty(idString))
-            {
-                int id = int.Parse(idString);
-                if (id == 0)
-                {
-                    person = new Person();
-                }
-                else
-                {
-                    Repository rep = new Repository();
-                    person = await rep.GetPersonAsync(id);
-                }
-            }
-            return person;
         }
     }
 }
