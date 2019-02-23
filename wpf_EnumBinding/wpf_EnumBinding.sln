@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wpf_EnumBinding", "wpf_EnumBinding\wpf_EnumBinding.csproj", "{EF5B96B7-436F-4851-A573-35AC9E324BD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumBinding.Utilities", "EnumBinding.Utilities\EnumBinding.Utilities.csproj", "{D13A6147-5168-409C-A69D-5B25A9E2D00F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumBinding.TheEnum", "EnumBinding.TheEnum\EnumBinding.TheEnum.csproj", "{1CF11B66-F035-43AA-90F9-259B2F4BED1F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF5B96B7-436F-4851-A573-35AC9E324BD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF5B96B7-436F-4851-A573-35AC9E324BD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF5B96B7-436F-4851-A573-35AC9E324BD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF5B96B7-436F-4851-A573-35AC9E324BD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D13A6147-5168-409C-A69D-5B25A9E2D00F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D13A6147-5168-409C-A69D-5B25A9E2D00F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D13A6147-5168-409C-A69D-5B25A9E2D00F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D13A6147-5168-409C-A69D-5B25A9E2D00F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CF11B66-F035-43AA-90F9-259B2F4BED1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CF11B66-F035-43AA-90F9-259B2F4BED1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CF11B66-F035-43AA-90F9-259B2F4BED1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CF11B66-F035-43AA-90F9-259B2F4BED1F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {14BB332A-1844-4FC6-8B76-48E56AA3C82A}
+	EndGlobalSection
+EndGlobal
