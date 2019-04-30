@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace RomanNumerals.Tests
 {
@@ -25,7 +26,7 @@ namespace RomanNumerals.Tests
             ageController = new AgeController(age, numerals, fileHandler, csvToCreated);
         }
 
-        [Fact]
+        [Fact(Timeout = 50)]
         public void When_CallingPost_ExpectValidReturnJSonInBody()
         {
             var dob = new NameDateOfBirth { DateOfBirth = new DateTime(1999, 02, 28), Name = "Miles Davis" };
@@ -37,7 +38,7 @@ namespace RomanNumerals.Tests
             // This will break in some months so a more sophisticated way of working out DoB would be an idea
             Assert.Equal("XX", created.Numeral);
         }
-        [Fact]
+        [Fact(Timeout = 50)]
         public void When_FileClearedAndCallPost_Expect_OneLineInFile()
         {
             fileHandler.ClearFile();
@@ -50,8 +51,11 @@ namespace RomanNumerals.Tests
             Assert.Single(createdLines);
         }
         [Fact]
-        public void When_FileClearedAndCallPostTwice_Expect_TwoLinesInFile()
+        public async void When_FileClearedAndCallPostTwice_Expect_TwoLinesInFile()
         {
+            // Tests can occasionally try and grab the file at the same time
+            // A database would be advisable for real world code
+            await Task.Delay(50);
             fileHandler.ClearFile();
 
             var dob = new NameDateOfBirth { DateOfBirth = new DateTime(1999, 02, 28), Name = "Miles Davis" };
@@ -62,7 +66,7 @@ namespace RomanNumerals.Tests
 
             Assert.Equal(2,createdLines.Length);
         }
-        [Fact]
+        [Fact(Timeout = 50)]
         public void When_FileClearedAndCallPostTwice_Expect_TwoCreatedsFromGet()
         {
             fileHandler.ClearFile();

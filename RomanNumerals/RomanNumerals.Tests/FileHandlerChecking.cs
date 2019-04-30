@@ -17,7 +17,7 @@ namespace RomanNumerals.Tests
             string[] createdLines = fileHandler.ReadLines();
             Assert.Single(createdLines);
         }
-        [Fact]
+        [Fact(Timeout = 50)]
         public void When_WritingTwoLines_ExpectTwoLinesInFile()
         {
             fileHandler.ClearFile();
