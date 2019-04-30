@@ -30,6 +30,10 @@ namespace RomanNumerals
 
             services.AddSingleton<IAge, Age>();
             services.AddSingleton<INumerals, Numerals>();
+            services.AddSingleton <IFileHandler, FileHandler>();
+            // CSV > Created is very tightly dependent on type etc and very specific so isn't going to be  switched out
+            services.AddSingleton<CSVtoCreated>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

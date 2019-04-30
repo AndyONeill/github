@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace RomanNumerals.Tests
 {
-    public class UnitTest1
+    public class NumeralConversion
     {
         private Numerals numerals = new Numerals();
         [Fact]
