@@ -29,14 +29,13 @@ namespace RomanNumerals.Tests
         [Fact(Timeout = 50)]
         public void When_CallingPost_ExpectValidReturnJSonInBody()
         {
-            var dob = new NameDateOfBirth { DateOfBirth = new DateTime(1999, 02, 28), Name = "Miles Davis" };
+            var dob = new NameDateOfBirth { DateOfBirth = DateTime.Now.AddYears(-20), Name = "Miles Davis" };
 
             JsonResult result = ageController.Post(dob);
             Created created = (Created)result.Value;
 
             Assert.Equal("Miles Davis", created.Name);
-            // This will break in some months so a more sophisticated way of working out DoB would be an idea
-            Assert.Equal("XX", created.Numeral);
+             Assert.Equal("XX", created.Numeral);
         }
         [Fact(Timeout = 50)]
         public void When_FileClearedAndCallPost_Expect_OneLineInFile()
@@ -67,7 +66,7 @@ namespace RomanNumerals.Tests
             Assert.Equal(2,createdLines.Length);
         }
         [Fact(Timeout = 50)]
-        public void When_FileClearedAndCallPostTwice_Expect_TwoCreatedsFromGet()
+        public void When_FileClearedAndCallPostTwice_Expect_TwoCreatedsReturnedFromGet()
         {
             fileHandler.ClearFile();
 
