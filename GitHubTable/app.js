@@ -1,14 +1,26 @@
 var gitHubUrl ="https://api.github.com/users/hadley/orgs";
 
+$(document).ready(function() { 
+    $('#getNewURL').on('submit', function(e) { 
+        e.preventDefault();  //prevent form from submitting
+        gitHubUrl = $('#urlInput').val();
+        AjaxCall();
+    });
+});
+
 $(document).ready(function(){
+	AjaxCall();
+});
+
+function AjaxCall(){
     jQuery.support.cors = true;
     $.ajax({
         type: "GET",
         url: gitHubUrl,
-
         contentType: "application/json; charset=utf-8", 
         dataType: 'json',
         success: function (response) {
+            $("#repoTable tbody").empty();
             $.each(response, function(i,r){ 
                 function WrapWithCell(content){
                     return "<td>" + content + "</td>"
@@ -28,6 +40,7 @@ $(document).ready(function(){
                     })
             },
         error: function (jqXHR, exception) {
+            $("#repoTable tbody").empty();
             console.log(jqXHR);
             var msg = '';
             if (jqXHR.status === 0) {
@@ -46,7 +59,5 @@ $(document).ready(function(){
                 msg = 'Uncaught Error.\n' + jqXHR.responseText;
             }
             alert(msg);
-    }	
-	
-    });
-});
+    }
+})};
