@@ -18,12 +18,11 @@
             QUnit.test("Test success count", function (assert) {     
              assert.equal(count, 10);});
            });
-      $(document).ajaxError(function(event,request,settings){
-            QUnit.test("Test fail for bad url", function (assert) {     
-             assert.equal(settings.url, "https://api.github.com/users/hadley/o");});
-           });
       tests.CorrectURLShouldGet10();
-      tests.BadURLShouldFail();
+      tests.BadURLShouldFail(function(jqXHR, exception){
+            QUnit.test("Test fail for bad url", function (assert) {     
+             assert.equal(jqXHR.status, 404);});
+           });
          
   </script>
 </head>

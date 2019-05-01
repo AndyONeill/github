@@ -44,7 +44,6 @@ function ajaxFail  (jqXHR, exception) {
 };
 
 function ajaxRequest (s,f,url){
-
     $.ajax({
         type: "GET",
         url: url,
@@ -53,5 +52,4 @@ function ajaxRequest (s,f,url){
         success: s,
         error: f
     });
-
 };

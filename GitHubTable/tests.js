@@ -7,6 +7,6 @@ function dummy () {
 function CorrectURLShouldGet10(){
     return ajaxHandling.ajaxRequest(dummy,dummy, "https://api.github.com/users/hadley/orgs");
 }
-function BadURLShouldFail(){
-    return ajaxHandling.ajaxRequest(dummy,dummy, "https://api.github.com/users/hadley/o");
+function BadURLShouldFail(func){
+    return ajaxHandling.ajaxRequest(dummy,func, "https://api.github.com/users/hadley/o");
 }
