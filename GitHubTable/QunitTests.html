@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Testing the jquery ajax calls</title>
+ 
+  <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.9.2.css">
+  <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.0.min.js"
+  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+  crossorigin="anonymous"></script>
+  <script type="module" src="tests.js"></script>
+ 
+  <script type="module">
+      import * as tests from './tests.js';
+      $(document).ajaxSuccess(function(event,request,settings){
+            let count = Object.keys(request).length / 2;
+            QUnit.test("Test success count", function (assert) {     
+             assert.equal(count, 10);});
+           });
+      $(document).ajaxError(function(event,request,settings){
+            QUnit.test("Test fail for bad url", function (assert) {     
+             assert.equal(settings.url, "https://api.github.com/users/hadley/o");});
+           });
+      tests.CorrectURLShouldGet10();
+      tests.BadURLShouldFail();
+         
+  </script>
+</head>
+<body>
+ 
+<div id="qunit"></div>
+ 
+</body>
+</html>

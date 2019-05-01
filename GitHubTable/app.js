@@ -11,7 +11,6 @@ $(document).ready(function() {
 });
 
 $(document).ready(function(){
-    console.log("doc ready");
     jQuery.support.cors = true;
     ajaxHandling.ajaxRequest(ajaxHandling.ajaxOK, ajaxHandling.ajaxFail,  gitHubUrl);
 });

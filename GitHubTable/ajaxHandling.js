@@ -1,5 +1,6 @@
 export { ajaxOK, ajaxFail, ajaxRequest};
 
+
 function ajaxOK (response) {
     function WrapWithCell(content){
         return "<td>" + content + "</td>"
@@ -19,8 +20,7 @@ function ajaxOK (response) {
                 +"</tr>" )
             })
     };
-       
-     
+    
 function ajaxFail  (jqXHR, exception) {
     $("#repoTable tbody").empty();
     console.log(jqXHR);
@@ -44,6 +44,7 @@ function ajaxFail  (jqXHR, exception) {
 };
 
 function ajaxRequest (s,f,url){
+
     $.ajax({
         type: "GET",
         url: url,
@@ -52,5 +53,5 @@ function ajaxRequest (s,f,url){
         success: s,
         error: f
     });
-};
 
+};
