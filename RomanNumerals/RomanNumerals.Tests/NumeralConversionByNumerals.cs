@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace RomanNumerals.Tests
 {
-    public class NumeralConversion
+    public class NumeralConversionByNumerals
     {
         private Numerals numerals = new Numerals();
         [Fact]
@@ -216,6 +216,8 @@ namespace RomanNumerals.Tests
 "C",
 
         };
+
+        // Use brute force iteration of list to be totally certain 1 - 100 work
         [Fact]
         public void When_List1_to_100_Expect_AllToMatch()
         {

@@ -6,7 +6,7 @@ using RomanNumerals.Models;
 
 namespace RomanNumerals.Tests
 {
-    public class ModelCreated
+    public class CSVConversionFromCreated
     {
         [Fact]
         public void When_CreatedConvertedToCSV_GetCorrectString()

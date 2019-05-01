@@ -6,7 +6,7 @@ using RomanNumerals.Helpers;
 using RomanNumerals.Models;
 namespace RomanNumerals.Tests
 {
-    public class FileHandlerChecking
+    public class ReadWriteLinesToCSVFile
     {
         private FileHandler fileHandler = new FileHandler();
         [Fact]

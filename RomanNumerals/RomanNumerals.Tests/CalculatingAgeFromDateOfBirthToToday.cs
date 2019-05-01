@@ -6,7 +6,7 @@ using Xunit;
 
 namespace RomanNumerals.Tests
 {
-    public class AgeChecking
+    public class CalculatingAgeFromDateOfBirthToToday
     {
         private Age age = new Age();
         [Fact]
@@ -17,14 +17,21 @@ namespace RomanNumerals.Tests
             Assert.Equal(1, result);
         }
         [Fact]
-        public void When_21YearOld_Expect_21()
+        public void When_FirstDayOf21YearOld_Expect_21()
         {
             DateTime dob = DateTime.Now.AddYears(-21).AddDays(-364);
             int result = age.Calculate(dob);
             Assert.Equal(21, result);
         }
         [Fact]
-        public void When_22YearOld_Expect_22()
+        public void When_LastDayOf21YearOld_Expect_21()
+        {
+            DateTime dob = DateTime.Now.AddYears(-21).AddDays(-1);
+            int result = age.Calculate(dob);
+            Assert.Equal(21, result);
+        }
+        [Fact]
+        public void When_Just22YearOld_Expect_22()
         {
             DateTime dob = DateTime.Now.AddYears(-21).AddDays(-365);
             int result = age.Calculate(dob);

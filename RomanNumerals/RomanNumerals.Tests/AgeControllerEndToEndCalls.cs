@@ -13,20 +13,19 @@ using System.Threading.Tasks;
 
 namespace RomanNumerals.Tests
 {
-
-    public class ServiceAge
+    public class AgeControllerEndToEndCalls
     {
         private AgeController ageController;
         private FileHandler fileHandler = new FileHandler();
         private Age age = new Age();
         private Numerals numerals = new Numerals();
         private CSVtoCreated csvToCreated = new CSVtoCreated();
-        public ServiceAge()
+        public AgeControllerEndToEndCalls()
         {
             ageController = new AgeController(age, numerals, fileHandler, csvToCreated);
         }
 
-        [Fact(Timeout = 50)]
+        [Fact(Timeout = 60)]
         public void When_CallingPost_ExpectValidReturnJSonInBody()
         {
             var dob = new NameDateOfBirth { DateOfBirth = DateTime.Now.AddYears(-20), Name = "Miles Davis" };
@@ -35,11 +34,14 @@ namespace RomanNumerals.Tests
             Created created = (Created)result.Value;
 
             Assert.Equal("Miles Davis", created.Name);
-             Assert.Equal("XX", created.Numeral);
+            Assert.Equal("XX", created.Numeral);
         }
-        [Fact(Timeout = 50)]
-        public void When_FileClearedAndCallPost_Expect_OneLineInFile()
+        [Fact(Timeout = 60)]
+        public async void When_FileClearedAndCallPost_Expect_OneLineInFile()
         {
+            // Tests can occasionally try and grab the file at the same time
+            // A database would be advisable for real world code
+            await Task.Delay(30);
             fileHandler.ClearFile();
 
             var dob = new NameDateOfBirth { DateOfBirth = new DateTime(1999, 02, 28), Name = "Miles Davis" };
@@ -49,12 +51,10 @@ namespace RomanNumerals.Tests
 
             Assert.Single(createdLines);
         }
-        [Fact]
+        [Fact(Timeout = 60)]
         public async void When_FileClearedAndCallPostTwice_Expect_TwoLinesInFile()
         {
-            // Tests can occasionally try and grab the file at the same time
-            // A database would be advisable for real world code
-            await Task.Delay(50);
+            await Task.Delay(30);
             fileHandler.ClearFile();
 
             var dob = new NameDateOfBirth { DateOfBirth = new DateTime(1999, 02, 28), Name = "Miles Davis" };
@@ -65,9 +65,10 @@ namespace RomanNumerals.Tests
 
             Assert.Equal(2,createdLines.Length);
         }
-        [Fact(Timeout = 50)]
-        public void When_FileClearedAndCallPostTwice_Expect_TwoCreatedsReturnedFromGet()
+        [Fact(Timeout = 60)]
+        public async void When_FileClearedAndCallPostTwice_Expect_TwoCreatedsReturnedFromGet()
         {
+            await Task.Delay(30);
             fileHandler.ClearFile();
 
             var dob1 = new NameDateOfBirth { DateOfBirth = new DateTime(1999, 02, 28), Name = "Miles Davis" };

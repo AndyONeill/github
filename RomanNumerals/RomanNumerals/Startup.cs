@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RomanNumerals.Helpers;
+using RomanNumerals.Extensions;
 
 namespace RomanNumerals
 {
@@ -23,7 +24,7 @@ namespace RomanNumerals
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // Add services for DI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
@@ -31,13 +32,13 @@ namespace RomanNumerals
             services.AddSingleton<IAge, Age>();
             services.AddSingleton<INumerals, Numerals>();
             services.AddSingleton <IFileHandler, FileHandler>();
-            // CSV > Created is very tightly dependent on type etc and very specific so isn't going to be  switched out
+            // CSV > Created is very tightly dependent on type etc and so specific it couldn't really be switched out
             services.AddSingleton<CSVtoCreated>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // Configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -50,6 +51,7 @@ namespace RomanNumerals
                 app.UseHsts();
             }
             app.UseCors(options => options.AllowAnyOrigin());
+            app.UseGlobalExceptionHandler();  // This is a stub for a "proper" custom global exception handler
             app.UseHttpsRedirection();
             app.UseMvc();
         }
