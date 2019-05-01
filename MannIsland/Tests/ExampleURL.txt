@@ -1,2 +1,0 @@
-﻿https://localhost:44312/Validate/Account/089999/66374958
-https://localhost:44312/Validate/Account?SortCode=089999&AccountNo=66374958
