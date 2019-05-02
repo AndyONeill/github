@@ -3,10 +3,10 @@ using Xunit;
 
 namespace ModulusChecker.Tests
 {
-    public class UnitTest1
+    public class InsufficientTime
     {
         [Fact]
-        public void Test1()
+        public void When_DoNotHaveEnoughTime_ExpectNoCode()
         {
 
         }
