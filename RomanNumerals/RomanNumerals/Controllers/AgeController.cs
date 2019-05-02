@@ -25,7 +25,7 @@ namespace RomanNumerals.Controllers
         public JsonResult Post([FromBody] NameDateOfBirth nameDateOfBirth)
         {
             // ToDo 
-            // Validate input and return 404 if date invalid or name too short
+            // Validate input and return 400 if date invalid or name too short
             int yearsAge = age.Calculate(nameDateOfBirth.DateOfBirth);
             string romanAge = numerals.Convert(yearsAge);
             Created created = new Created { Name = nameDateOfBirth.Name,
