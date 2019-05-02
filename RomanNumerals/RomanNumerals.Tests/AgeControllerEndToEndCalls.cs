@@ -26,12 +26,12 @@ namespace RomanNumerals.Tests
         }
 
         [Fact(Timeout = 60)]
-        public void When_CallingPost_ExpectValidReturnJSonInBody()
+        public void When_CallingValidPost_ExpectValidReturnJSonInBody()
         {
             var dob = new NameDateOfBirth { DateOfBirth = DateTime.Now.AddYears(-20), Name = "Miles Davis" };
 
-            JsonResult result = ageController.Post(dob);
-            Created created = (Created)result.Value;
+            IActionResult result = ageController.Post(dob);
+            Created created = (Created)((JsonResult)result).Value;
 
             Assert.Equal("Miles Davis", created.Name);
             Assert.Equal("XX", created.Numeral);
@@ -45,7 +45,7 @@ namespace RomanNumerals.Tests
             fileHandler.ClearFile();
 
             var dob = new NameDateOfBirth { DateOfBirth = new DateTime(1999, 02, 28), Name = "Miles Davis" };
-            JsonResult result = ageController.Post(dob);
+            IActionResult result = ageController.Post(dob);
 
             string[] createdLines = fileHandler.ReadLines();
 
@@ -59,8 +59,8 @@ namespace RomanNumerals.Tests
 
             var dob = new NameDateOfBirth { DateOfBirth = new DateTime(1999, 02, 28), Name = "Miles Davis" };
 
-            JsonResult result = ageController.Post(dob);
-                       result = ageController.Post(dob);
+            IActionResult result = ageController.Post(dob);
+                          result = ageController.Post(dob);
             string[] createdLines = fileHandler.ReadLines();
 
             Assert.Equal(2,createdLines.Length);
@@ -72,7 +72,7 @@ namespace RomanNumerals.Tests
             fileHandler.ClearFile();
 
             var dob1 = new NameDateOfBirth { DateOfBirth = new DateTime(1999, 02, 28), Name = "Miles Davis" };
-            JsonResult result = ageController.Post(dob1);
+            IActionResult result = ageController.Post(dob1);
             var dob2 = new NameDateOfBirth { DateOfBirth = new DateTime(1999, 02, 28), Name = "Peter Parker" };
             result = ageController.Post(dob2);
             JsonResult jsonFromFile = ageController.Get();
@@ -80,6 +80,28 @@ namespace RomanNumerals.Tests
 
             Assert.Equal("Miles Davis", createds[0].Name);
             Assert.Equal("Peter Parker", createds[1].Name);
+        }
+        [Fact]
+        public void When_AgeIsZero_Expect_400()
+        {
+            var dob = new NameDateOfBirth { DateOfBirth = DateTime.Now.AddDays(-364), Name = "Miles Davis" };
+
+            IActionResult result = ageController.Post(dob);
+
+            int status = ((StatusCodeResult)result).StatusCode;
+
+            Assert.Equal(400, status);
+        }
+        [Fact]
+        public void When_NameTooShort_Expect_400()
+        {
+            var dob = new NameDateOfBirth { DateOfBirth = DateTime.Now.AddYears(2), Name = "Miles" };
+
+            IActionResult result = ageController.Post(dob);
+
+            int status = ((StatusCodeResult)result).StatusCode;
+
+            Assert.Equal(400, status);
         }
     }
 }

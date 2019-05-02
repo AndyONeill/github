@@ -22,11 +22,16 @@ namespace RomanNumerals.Controllers
         // Post api/Age   
         // This is a Put because Get should not pass data
         [HttpPost]
-        public JsonResult Post([FromBody] NameDateOfBirth nameDateOfBirth)
+        public IActionResult Post([FromBody] NameDateOfBirth nameDateOfBirth)
         {
             // ToDo 
             // Validate input and return 400 if date invalid or name too short
             int yearsAge = age.Calculate(nameDateOfBirth.DateOfBirth);
+            if(yearsAge < 1 || (nameDateOfBirth.Name?.Length ?? 0) < 6)
+            {
+                return BadRequest();
+            }
+
             string romanAge = numerals.Convert(yearsAge);
             Created created = new Created { Name = nameDateOfBirth.Name,
                                             CreatedAt = DateTime.Now.ToString(),
