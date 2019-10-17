@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WPFClock">
+    <Polyline Stretch="Uniform"
+                  Grid.Column="1"
+                  Name="indicator"
+                  Points="0,0 0,60"
+                  Stroke="White"
+                  StrokeThickness="{Binding ActualWidth, ElementName=measurer}"
+                  StrokeStartLineCap="Triangle"
+                  StrokeEndLineCap="Round"
+                  IsHitTestVisible="False"
+              x:Key="line"
+         />
+</ResourceDictionary>
